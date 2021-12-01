@@ -18,16 +18,17 @@
 #include "DSP281x_Device.h"     // DSP281x Headerfile Include File
 #include "DSP281x_Examples.h"   // DSP281x Examples Include File
 
+extern Uint32 time;
 
 // Note CPU-Timer1 ISR is reserved for TI use.
 interrupt void INT13_ISR(void)     // INT13 or CPU-Timer1
 {
   // Insert ISR Code here
-  //ÔÚ´Ë²åÈëISR
+  //ï¿½Ú´Ë²ï¿½ï¿½ï¿½ISR
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-     asm ("      ESTOP0"); //½ö½öÔÚµ÷ÊÔµÄÊ±ºò£¬ÓÃÀ´ÔÝÍ£´¦ÀíÆ÷¡£
-                           //Èç¹ûÓÐ¾ßÌåµÄISRÊ±ÐèÒª½«ÕâÁ½¾äÉ¾³ý¡£
+     asm ("      ESTOP0"); //ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Ôµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                           //ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ISRÊ±ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½
      for(;;);
 }
 
@@ -301,14 +302,16 @@ interrupt void  TINT0_ISR(void)      // CPU-Timer 0
 {
  
   // Insert ISR Code here
-
+  time++;
+  if (time == 360000) {
+    time = 0;
+  }
+  time_adj();
+  PieCtrlRegs.PIEACK.all = 0x1;
+  CpuTimer0Regs.TCR.all = 0xf000;
   // To receive more interrupts from this PIE group, acknowledge this interrupt 
-  //PieCtrlRegs.PIEACK.all = PIEACK_GROUP1; 
-  
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-     asm ("      ESTOP0");
-     for(;;);
+  PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+
 }
 
 // INT1.8
@@ -982,7 +985,7 @@ interrupt void ECAN1INTA_ISR(void)  // eCAN-A
 //
 
 interrupt void EMPTY_ISR(void)  // Empty ISR - only does a return.
-{                               //¿ÕÀý³Ì£¬½ö½öÍê³É´ÓÖÐ¶Ï²Ù×÷µÄ·µ»Ø¡£
+{                               //ï¿½ï¿½ï¿½ï¿½ï¿½Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É´ï¿½ï¿½Ð¶Ï²ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Ø¡ï¿½
 
 }
 
