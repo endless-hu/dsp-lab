@@ -11,26 +11,33 @@
 //  1.00| 11 Sep 2003 | L.H. | No change since previous version (v.58 Alpha)
 //###########################################################################
 
-#include "DSP281x_Device.h"     // DSP281x Headerfile Include File
-#include "DSP281x_Examples.h"   // DSP281x Examples Include File
+#include "DSP281x_Device.h"    // DSP281x Headerfile Include File
+#include "DSP281x_Examples.h"  // DSP281x Examples Include File
 
 //---------------------------------------------------------------------------
-// InitGpio: 
+// InitGpio:
 //---------------------------------------------------------------------------
 // This function initializes the Gpio to a known state.
 //
-void InitGpio(void)
-{
+void InitGpio(void) {
+  EALLOW;
+  // Set GPIO F port pins Output
+  GpioMuxRegs.GPFMUX.all = 0x0000;
+  GpioMuxRegs.GPFDIR.all = 0xFF00;  // upper byte as output/low byte as input
 
-// Set GPIO F port pins Output
-// Input Qualifier =0, none
-     EALLOW;
-     GpioMuxRegs.GPFMUX.all=0x0000;     
-     GpioMuxRegs.GPFDIR.all=0xFFFF;    	// upper byte as output/low byte as input
-     EDIS;
+  GpioMuxRegs.GPBMUX.all = 0x0000;
+  GpioMuxRegs.GPBDIR.all = 0xFF00;
 
-}	
-	
+  GpioMuxRegs.GPEMUX.all = 0x0000;
+  GpioMuxRegs.GPEDIR.all = 0x0007;
+
+  GpioMuxRegs.GPAMUX.bit.TDIRA_GPIOA11 = 0;
+  GpioMuxRegs.GPADIR.bit.GPIOA11 = 1;
+  EDIS;
+
+  GpioDataRegs.GPADAT.bit.GPIOA11 = 0;
+}
+
 //===========================================================================
 // No more.
 //===========================================================================

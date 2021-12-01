@@ -30,6 +30,8 @@ void InitSpi(void) {
   // 退出复位状态；
   EALLOW;
   GpioMuxRegs.GPFMUX.all = 0x000F;  // 配置引脚；
+  SpiaRegs.SPIFFTX.all = 0xE000;    //使能FIFO
+  SpiaRegs.SPIFFCT.all = 8;         //帧间延时
   EDIS;
 }
 

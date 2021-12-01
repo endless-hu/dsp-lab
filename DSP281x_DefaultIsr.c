@@ -15,208 +15,225 @@
 //      |             |      | Changed USER0-USER11 to USER1-USER12
 //###########################################################################
 
-#include "DSP281x_Device.h"     // DSP281x Headerfile Include File
-#include "DSP281x_Examples.h"   // DSP281x Examples Include File
+#include "DSP281x_Device.h"    // DSP281x Headerfile Include File
+#include "DSP281x_Examples.h"  // DSP281x Examples Include File
+#include "main.h"
 
 extern Uint32 time;
+extern SysFlags flag;
+extern Uint16 AD1;
+extern Uint16 AD2;
 
 // Note CPU-Timer1 ISR is reserved for TI use.
-interrupt void INT13_ISR(void)     // INT13 or CPU-Timer1
+interrupt void INT13_ISR(void)  // INT13 or CPU-Timer1
 {
   // Insert ISR Code here
   //�ڴ˲���ISR
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-     asm ("      ESTOP0"); //�����ڵ��Ե�ʱ��������ͣ��������
-                           //����о����ISRʱ��Ҫ��������ɾ����
-     for(;;);
+  asm("      ESTOP0");  //�����ڵ��Ե�ʱ��������ͣ��������
+                        //����о����ISRʱ��Ҫ��������ɾ����
+  for (;;)
+    ;
 }
 
 // Note CPU-Timer2 ISR is reserved for TI use.
-interrupt void INT14_ISR(void)     // CPU-Timer2
-{
-  // Insert ISR Code here
-  
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-     asm ("      ESTOP0");
-     for(;;);
-}
-
-interrupt void DATALOG_ISR(void)   // Datalogging interrupt
-{
-  // Insert ISR Code here
- 
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-}
-
-interrupt void RTOSINT_ISR(void)   // RTOS interrupt
+interrupt void INT14_ISR(void)  // CPU-Timer2
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void EMUINT_ISR(void)    // Emulation interrupt
+interrupt void DATALOG_ISR(void)  // Datalogging interrupt
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void NMI_ISR(void)       // Non-maskable interrupt
+interrupt void RTOSINT_ISR(void)  // RTOS interrupt
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void ILLEGAL_ISR(void)   // Illegal operation TRAP
+interrupt void EMUINT_ISR(void)  // Emulation interrupt
+{
+  // Insert ISR Code here
+
+  // Next two lines for debug only to halt the processor here
+  // Remove after inserting ISR Code
+  asm("      ESTOP0");
+  for (;;)
+    ;
+}
+
+interrupt void NMI_ISR(void)  // Non-maskable interrupt
+{
+  // Insert ISR Code here
+
+  // Next two lines for debug only to halt the processor here
+  // Remove after inserting ISR Code
+  asm("      ESTOP0");
+  for (;;)
+    ;
+}
+
+interrupt void ILLEGAL_ISR(void)  // Illegal operation TRAP
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
   asm("          ESTOP0");
-  for(;;);
-
+  for (;;)
+    ;
 }
 
-
-interrupt void USER1_ISR(void)     // User Defined trap 1
+interrupt void USER1_ISR(void)  // User Defined trap 1
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER2_ISR(void)     // User Defined trap 2
+interrupt void USER2_ISR(void)  // User Defined trap 2
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER3_ISR(void)     // User Defined trap 3
+interrupt void USER3_ISR(void)  // User Defined trap 3
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER4_ISR(void)     // User Defined trap 4
+interrupt void USER4_ISR(void)  // User Defined trap 4
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER5_ISR(void)     // User Defined trap 5
+interrupt void USER5_ISR(void)  // User Defined trap 5
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER6_ISR(void)     // User Defined trap 6
+interrupt void USER6_ISR(void)  // User Defined trap 6
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER7_ISR(void)     // User Defined trap 7
+interrupt void USER7_ISR(void)  // User Defined trap 7
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER8_ISR(void)     // User Defined trap 8
+interrupt void USER8_ISR(void)  // User Defined trap 8
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER9_ISR(void)     // User Defined trap 9
+interrupt void USER9_ISR(void)  // User Defined trap 9
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER10_ISR(void)    // User Defined trap 10
+interrupt void USER10_ISR(void)  // User Defined trap 10
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER11_ISR(void)    // User Defined trap 11
+interrupt void USER11_ISR(void)  // User Defined trap 11
 {
   // Insert ISR Code here
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void USER12_ISR(void)     // User Defined trap 12
+interrupt void USER12_ISR(void)  // User Defined trap 12
 {
- // Insert ISR Code here
- 
+  // Insert ISR Code here
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // -----------------------------------------------------------
@@ -224,426 +241,484 @@ interrupt void USER12_ISR(void)     // User Defined trap 12
 // -----------------------------------------------------------
 
 // INT1.1
-interrupt void PDPINTA_ISR( void )    // EV-A
+interrupt void PDPINTA_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
-  
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT1.2
-interrupt void  PDPINTB_ISR(void)   // EV-B
+interrupt void PDPINTB_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT1.3 - Reserved
 
 // INT1.4
-interrupt void  XINT1_ISR(void)
-{
+interrupt void XINT1_ISR(void) {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
-}     
+  asm("      ESTOP0");
+  for (;;)
+    ;
+}
 
 // INT1.5
-interrupt void  XINT2_ISR(void)
-{
+interrupt void XINT2_ISR(void) {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT1.6
-interrupt void  ADCINT_ISR(void)     // ADC
+interrupt void ADCINT_ISR(void)  // ADC
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1; 
-  
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
+  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT1.7
-interrupt void  TINT0_ISR(void)      // CPU-Timer 0
+interrupt void TINT0_ISR(void)  // CPU-Timer 0
 {
- 
+  // CALLED EVERY 10 MS!!!
   // Insert ISR Code here
-  time++;
-  if (time == 360000) {
-    time = 0;
+  static Uint16 cnt;
+  cnt++;
+
+  // time adjustment
+  if ((flag.display_which == DISPLAY_CLOCK) && (cnt % 2 == 0)) {
+    display_latch();
+  }
+  switch (flag.clock_speed) {
+    case HIGH_SPEED: {
+      time++;
+    } break;
+
+    case MEDIUM_SPEED: {
+      if (cnt % 10 == 0) {
+        time++;
+      }
+    } break;
+
+    case LOW_SPEED: {
+      if (cnt % 100 == 0) {
+        time++;
+      }
+    } break;
+
+    default:
+      // Next two lines for debug only to halt the processor here
+      asm("      ESTOP0");
+      for (;;)
+        ;
   }
   time_adj();
+
+  // ADC adjustment, read ADC results EVERY 100 MS
+  if (cnt == 10) {
+    AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/启动
+    while (AdcRegs.ADCST.bit.SEQ1_BSY == 1) {
+    }  // 忙否
+    AD1 = AdcRegs.ADCRESULT0 >> 4;
+    AD2 = (AD1 * 3 * 1000) / 4095;  //实际AD值*1000
+  }
+  if (cnt == 20) {
+    cnt = 0;
+    if (flag.display_which == DISPLAY_ADC) {
+      display_latch();
+    }
+  }
+
   PieCtrlRegs.PIEACK.all = 0x1;
   CpuTimer0Regs.TCR.all = 0xf000;
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
-
 }
 
 // INT1.8
-interrupt void  WAKEINT_ISR(void)    // WD
+interrupt void WAKEINT_ISR(void)  // WD
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1; 
-  
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
+  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
-
 
 // -----------------------------------------------------------
 // PIE Group 2 - MUXed into CPU INT2
 // -----------------------------------------------------------
 
 // INT2.1
-interrupt void CMP1INT_ISR(void)    // EV-A
+interrupt void CMP1INT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT2.2
-interrupt void CMP2INT_ISR(void)    // EV-A
+interrupt void CMP2INT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT2.3
-interrupt void CMP3INT_ISR(void)    // EV-A
+interrupt void CMP3INT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
-  
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
-
 
 // INT2.4
-interrupt void T1PINT_ISR(void)    // EV-A
+interrupt void T1PINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
-  
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-
 // INT2.5
-interrupt void T1CINT_ISR(void)    // EV-A
+interrupt void T1CINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT2.6
-interrupt void T1UFINT_ISR(void)   // EV-A
+interrupt void T1UFINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-   
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
-  
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT2.7
-interrupt void T1OFINT_ISR(void)   // EV-A
+interrupt void T1OFINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
-      
-      
+
 // INT2.8 - Reserved
 
 // -----------------------------------------------------------
 // PIE Group 3 - MUXed into CPU INT3
 // -----------------------------------------------------------
-   
-// INT 3.1         
-interrupt void T2PINT_ISR(void)     // EV-A
+
+// INT 3.1
+interrupt void T2PINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT3.2
-interrupt void T2CINT_ISR(void)     // EV-A
+interrupt void T2CINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT3.3
-interrupt void T2UFINT_ISR(void)    // EV-A
+interrupt void T2UFINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT3.4
-interrupt void T2OFINT_ISR(void)    // EV-A
+interrupt void T2OFINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
-  
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;  
+
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
+  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT3.5
-interrupt void CAPINT1_ISR(void)    // EV-A
+interrupt void CAPINT1_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;  
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
+  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT3.6
-interrupt void CAPINT2_ISR(void)    // EV-A
+interrupt void CAPINT2_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT3.7
-interrupt void CAPINT3_ISR(void)    // EV-A
+interrupt void CAPINT3_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
-      
-// INT3.8 - Reserved
 
+// INT3.8 - Reserved
 
 // -----------------------------------------------------------
 // PIE Group 4 - MUXed into CPU INT4
 // -----------------------------------------------------------
 
 // INT 4.1
-interrupt void CMP4INT_ISR(void)    // EV-B
+interrupt void CMP4INT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
-  
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;  
+
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
+  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT4.2
-interrupt void CMP5INT_ISR(void)    // EV-B
+interrupt void CMP5INT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
-  
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT4.3
-interrupt void CMP6INT_ISR(void)    // EV-B
+interrupt void CMP6INT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;
-  
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT4.4
-interrupt void T3PINT_ISR(void)     // EV-B
+interrupt void T3PINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT4.5
-interrupt void T3CINT_ISR(void)     // EV-B
+interrupt void T3CINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT4.6
-interrupt void T3UFINT_ISR(void)    // EV-B
+interrupt void T3UFINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT4.7
-interrupt void T3OFINT_ISR(void)    // EV-B
+interrupt void T3OFINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP4;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
-     
+
 // INT4.8 -- Reserved
 
 // -----------------------------------------------------------
@@ -651,103 +726,109 @@ interrupt void T3OFINT_ISR(void)    // EV-B
 // -----------------------------------------------------------
 
 // INT 5.1
-interrupt void T4PINT_ISR(void)    // EV-B
+interrupt void T4PINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT5.2
-interrupt void T4CINT_ISR(void)    // EV-B
+interrupt void T4CINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
- 
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT5.3
-interrupt void T4UFINT_ISR(void)   // EV-B
+interrupt void T4UFINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
-  
+
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT5.4
-interrupt void T4OFINT_ISR(void)   // EV-B
+interrupt void T4OFINT_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT5.5
-interrupt void CAPINT4_ISR(void)   // EV-B
+interrupt void CAPINT4_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT5.6
-interrupt void CAPINT5_ISR(void)   // EV-B
+interrupt void CAPINT5_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT5.7
-interrupt void CAPINT6_ISR(void)   // EV-B
+interrupt void CAPINT6_ISR(void)  // EV-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
-
 
 // INT5.8 - Reserved
 
@@ -756,67 +837,70 @@ interrupt void CAPINT6_ISR(void)   // EV-B
 // -----------------------------------------------------------
 
 // INT6.1
-interrupt void SPIRXINTA_ISR(void)    // SPI-A
+interrupt void SPIRXINTA_ISR(void)  // SPI-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP6;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT6.2
-interrupt void SPITXINTA_ISR(void)     // SPI-A
+interrupt void SPITXINTA_ISR(void)  // SPI-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP6;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT6.3 - Reserved
 // INT6.4 - Reserved
 
 // INT6.5
-interrupt void MRINTA_ISR(void)     // McBSP-A
+interrupt void MRINTA_ISR(void)  // McBSP-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP6;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT6.6
-interrupt void MXINTA_ISR(void)     // McBSP-A
+interrupt void MXINTA_ISR(void)  // McBSP-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP6;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT6.7 - Reserved
 // INT6.8 - Reserved
-
 
 // -----------------------------------------------------------
 // PIE Group 7 - MUXed into CPU INT7
@@ -844,70 +928,68 @@ interrupt void MXINTA_ISR(void)     // McBSP-A
 // INT8.7 - Reserved
 // INT8.8 - Reserved
 
-
 // -----------------------------------------------------------
 // PIE Group 9 - MUXed into CPU INT9
 // -----------------------------------------------------------
 
 // INT9.1
-interrupt void SCIRXINTA_ISR(void)     // SCI-A
+interrupt void SCIRXINTA_ISR(void)  // SCI-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT9.2
-interrupt void SCITXINTA_ISR(void)     // SCI-A
+interrupt void SCITXINTA_ISR(void)  // SCI-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-
 // INT9.3
-interrupt void SCIRXINTB_ISR(void)     // SCI-B
+interrupt void SCIRXINTB_ISR(void)  // SCI-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT9.4
-interrupt void SCITXINTB_ISR(void)     // SCI-B
+interrupt void SCITXINTB_ISR(void)  // SCI-B
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT9.5
@@ -915,14 +997,14 @@ interrupt void ECAN0INTA_ISR(void)  // eCAN-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // INT9.6
@@ -930,14 +1012,14 @@ interrupt void ECAN1INTA_ISR(void)  // eCAN-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt 
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
   // PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-   asm ("      ESTOP0");
-   for(;;);
-
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 // -----------------------------------------------------------
@@ -952,7 +1034,6 @@ interrupt void ECAN1INTA_ISR(void)  // eCAN-A
 // INT10.6 - Reserved
 // INT10.7 - Reserved
 // INT10.8 - Reserved
-
 
 // -----------------------------------------------------------
 // PIE Group 11 - MUXed into CPU INT11
@@ -981,27 +1062,27 @@ interrupt void ECAN1INTA_ISR(void)  // eCAN-A
 // INT12.8 - Reserved
 
 //---------------------------------------------------------------------------
-// Catch All Default ISRs: 
+// Catch All Default ISRs:
 //
 
 interrupt void EMPTY_ISR(void)  // Empty ISR - only does a return.
-{                               //�����̣�������ɴ��жϲ����ķ��ء�
-
+{  //�����̣�������ɴ��жϲ����ķ��ء�
 }
 
 interrupt void PIE_RESERVED(void)  // Reserved space.  For test.
 {
-  asm ("      ESTOP0");
-  for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
-interrupt void rsvd_ISR(void)      // For test
+interrupt void rsvd_ISR(void)  // For test
 {
-  asm ("      ESTOP0");
-  for(;;);
+  asm("      ESTOP0");
+  for (;;)
+    ;
 }
 
 //===========================================================================
 // No more.
 //===========================================================================
-
