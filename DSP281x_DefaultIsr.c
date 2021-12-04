@@ -323,23 +323,27 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   static Uint16 cnt;
   cnt++;
 
+  Keyscan();
+
   // time adjustment
   if ((flag.display_which == DISPLAY_CLOCK) && (cnt % 2 == 0)) {
     display_latch();
   }
   switch (flag.clock_speed) {
     case HIGH_SPEED: {
-      time++;
+      if (flag.clock_start == CLOCK_START) {
+        time++;
+      }
     } break;
 
     case MEDIUM_SPEED: {
-      if (cnt % 10 == 0) {
+      if (flag.clock_start == CLOCK_START && cnt % 10 == 0) {
         time++;
       }
     } break;
 
     case LOW_SPEED: {
-      if (cnt % 100 == 0) {
+      if (flag.clock_start == CLOCK_START && cnt % 100 == 0) {
         time++;
       }
     } break;

@@ -21,7 +21,6 @@ void main(void) {
   InitGpio();
   InitCpuTimers();  // CPU timer interrupts every 10 ms
 
-  InitPIE();
   InitPieCtrl();
   InitPieVectTable();
   InitSpi();
