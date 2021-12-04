@@ -25,6 +25,7 @@ void main(void) {
   InitPieVectTable();
   InitSpi();
   EnableInterrupts();
+  InitEv();
 
   EALLOW;
   asm("  and IFR,#00H");

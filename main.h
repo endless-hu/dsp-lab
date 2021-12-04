@@ -73,3 +73,5 @@ typedef struct Flags {
   Uint16 op_unit : 3;
   Uint16 rsvd : 8;
 } SysFlags;
+
+#define AD2PWM(AD) (AD / 10 + 10)
