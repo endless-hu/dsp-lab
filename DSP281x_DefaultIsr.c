@@ -400,45 +400,55 @@ interrupt void WAKEINT_ISR(void)  // WD
 interrupt void CMP1INT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
+  GpioDataRegs.GPFTOGGLE.all = 0x0900;  // 0000 1001 0000 0000
+
+  // int i;
+  // GpioDataRegs.GPBTOGGLE.all = 0x1100;  // 0001 0001 0000 0000
+  // GpioDataRegs.GPEDAT.all = 0xFFFA;
+  // for (i = 0; i < 100; i++) {
+  // }
+  // GpioDataRegs.GPEDAT.all = 0xFFFF;
+
+  EvaRegs.EVAIFRA.all = 2;  // 置位CMPR1中断标志
 
   // To receive more interrupts from this PIE group, acknowledge this interrupt
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
-
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-  asm("      ESTOP0");
-  for (;;)
-    ;
+  PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 }
 
 // INT2.2
 interrupt void CMP2INT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
+  GpioDataRegs.GPFTOGGLE.all = 0x1200;  // 0001 0010 0000 0000
 
+  // int i;
+  // GpioDataRegs.GPBTOGGLE.all = 0x2200;  // 0010 0010 0000 0000
+  // GpioDataRegs.GPEDAT.all = 0xFFFA;
+  // for (i = 0; i < 100; i++) {
+  // }
+  // GpioDataRegs.GPEDAT.all = 0xFFFF;
+
+  EvaRegs.EVAIFRA.all = 4;  // 置位CMPR2中断标志
   // To receive more interrupts from this PIE group, acknowledge this interrupt
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
-
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-  asm("      ESTOP0");
-  for (;;)
-    ;
+  PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 }
 
 // INT2.3
 interrupt void CMP3INT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
+  GpioDataRegs.GPFTOGGLE.all = 0x2400;  // 0010 0100 0000 0000
 
+  // int i;
+  // GpioDataRegs.GPBTOGGLE.all = 0x2200;  // 0010 0010 0000 0000
+  // GpioDataRegs.GPEDAT.all = 0xFFFA;
+  // for (i = 0; i < 100; i++) {
+  // }
+  // GpioDataRegs.GPEDAT.all = 0xFFFF;
+
+  EvaRegs.EVAIFRA.all = 8;  // 置位CMPR3中断标志
   // To receive more interrupts from this PIE group, acknowledge this interrupt
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
-
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-  asm("      ESTOP0");
-  for (;;)
-    ;
+  PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 }
 
 // INT2.4
@@ -446,14 +456,16 @@ interrupt void T1PINT_ISR(void)  // EV-A
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
+  GpioDataRegs.GPFDAT.all = 0x0700;  // 0000 0111 0000 0000
 
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-  asm("      ESTOP0");
-  for (;;)
-    ;
+  EvaRegs.CMPR1 = AD2PWM(AD2) / 3;
+  EvaRegs.CMPR2 = AD2PWM(AD2) / 3 + 55;
+  EvaRegs.CMPR3 = AD2PWM(AD2) / 3 + 110;
+
+  // EvaRegs.EVAIFRA.bit.T1PINT = 1;
+  EvaRegs.EVAIFRA.all = 0x80;  // set the P1INT flag
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
+  PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 }
 
 // INT2.5

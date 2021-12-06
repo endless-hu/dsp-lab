@@ -30,8 +30,10 @@ void InitEv(void) {
   // EvaRegs.T1CON.bit.TMODE = 2;  // 10B, 连续增计数模式, 对应第12~11位
   // EvaRegs.T1CON.bit.TPS = 7;  // 111B, 对高速外设时钟128分频，对应第10~8位
   // 第7位是保留位
-  // EvaRegs.T1CON.bit.TENABLE = 1;  // 开始计时
-  // EvaRegs.T1CON.bit.TCLD10 = 2;   // 10B, 立即重载比较寄存器
+  // EvaRegs.T1CON.bit.TENABLE = 1;  // 开始计时, 第6位
+  // EvaRegs.T1CON.bit.TCLKS10 = 1;   // 01B, 选择外部时钟源, 对应第5~4位
+  // EvaRegs.T1CON.bit.TCLD10 = 2;   // 10B, 立即重载比较寄存器, 对应第3~2位
+  // EvaRegs.T1CON.bit.TECMPR = 1;  // 使能比较中断, 对应第1位
   // 第0位是保留位, 只对T2和T4有效; T2该位为1时T2将使用T1的周期寄存器
   EvaRegs.T1CON.all = 0x17ca;
 
@@ -40,15 +42,15 @@ void InitEv(void) {
   EvaRegs.COMCONA.all = 0x82e0;  // 1000 0010 1110 0000
   /**                 使能比较单元 <-+||| ||   |||
    *  当T1CNT==0时立即重载CMPRx <-----++| ||   |||
-   *  Disable spatial vector PWM  <----+ ||  Enable CMPR1
+   *  Disable spatial vector PWM  <----+ ||  Enable CMPR1,2,3
    *                         Reload ACTRA When T1CNT==0
    */
 
   EvaRegs.ACTRA.all = 0x1;  // 比较输出引脚1低电平有效，其余强制低电平
-  EvaRegs.DBTCONA.all = 00;
+  EvaRegs.DBTCONA.all = 00;  // 死区控制寄存器，这里屏蔽所有死区定时器
   EvaRegs.CMPR1 = AD2PWM(AD2) / 3;
-  EvaRegs.CMPR2 = AD2PWM(AD2) / 3 + 12;
-  EvaRegs.CMPR3 = AD2PWM(AD2) / 3 + 14;
+  EvaRegs.CMPR2 = AD2PWM(AD2) / 3 + 55;
+  EvaRegs.CMPR3 = AD2PWM(AD2) / 3 + 110;
   EvaRegs.EVAIMRA.all = 0x8e;
   EvaRegs.EVAIFRA.all = 0;
   EDIS;
