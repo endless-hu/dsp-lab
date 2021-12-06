@@ -5,6 +5,7 @@ extern Uint32 time;
 extern SysFlags flag;
 extern Uint16 AD1;
 extern Uint16 AD2;
+extern const unsigned int LEDCode[33];
 
 void display(void) {
   GpioDataRegs.GPADAT.bit.GPIOA11 = 0;
@@ -25,13 +26,10 @@ void time_adj() {
   timer[2] = time % 3600 / 60 / 10;
   timer[1] = time % 360000 / 3600 % 10;
   timer[0] = time % 360000 / 3600 / 10;
-  if (flag.display_which == DISPLAY_CLOCK) {
-    display_time();
-  }
 }
 
 void display_time() {
-  int i, j;
+  int i;
   for (i = 0; i < 8; i++) {
     if (i > 5) {
       switch (flag.op_unit) {
@@ -85,7 +83,6 @@ void display_time() {
           // ERROR, stop the system
           for (;;)
             ;
-          break;
       }
     } else if (i % 2 == 0) {
       SpiaRegs.SPITXBUF = LEDCode[timer[i]];

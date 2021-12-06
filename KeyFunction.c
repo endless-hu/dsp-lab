@@ -4,6 +4,7 @@ extern int keyin;
 extern Uint32 time;
 extern SysFlags flag;
 int keyin1, keyin2, keyin3;
+extern const unsigned int LEDCode[33];
 
 void Keyscan(void) {
   int i;
@@ -126,7 +127,6 @@ void KeyFunction() {
             // ERROR, stop the system
             for (;;)
               ;
-            break;
         }
       }
       break;
@@ -158,7 +158,6 @@ void KeyFunction() {
             // ERROR, stop the system
             for (;;)
               ;
-            break;
         }
       }
       break;
@@ -196,7 +195,7 @@ void KeyFunction() {
             // ERROR, stop the system
             for (;;)
               ;
-            break;
+
         }
       }
       break;
@@ -216,7 +215,7 @@ void KeyFunction() {
           // ERROR, stop the system
           for (;;)
             ;
-          break;
+
       }
       break;
 

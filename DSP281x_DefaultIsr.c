@@ -23,16 +23,17 @@ extern Uint32 time;
 extern SysFlags flag;
 extern Uint16 AD1;
 extern Uint16 AD2;
+extern const unsigned int LEDCode[33];
 
 // Note CPU-Timer1 ISR is reserved for TI use.
 interrupt void INT13_ISR(void)  // INT13 or CPU-Timer1
 {
   // Insert ISR Code here
-  //�ڴ˲���ISR
+  //锟节此诧拷锟斤拷ISR
   // Next two lines for debug only to halt the processor here
   // Remove after inserting ISR Code
-  asm("      ESTOP0");  //�����ڵ��Ե�ʱ��������ͣ��������
-                        //����о����ISRʱ��Ҫ��������ɾ����
+  asm("      ESTOP0");  //锟斤拷锟斤拷锟节碉拷锟皆碉拷时锟斤拷锟斤拷锟斤拷锟斤拷停锟斤拷锟斤拷锟斤拷锟斤拷
+                        //锟斤拷锟斤拷芯锟斤拷锟斤拷ISR时锟斤拷要锟斤拷锟斤拷锟斤拷锟斤拷删锟斤拷锟斤拷
   for (;;)
     ;
 }
@@ -305,14 +306,16 @@ interrupt void ADCINT_ISR(void)  // ADC
 {
   // Insert ISR Code here
 
-  // To receive more interrupts from this PIE group, acknowledge this interrupt
-  // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+  AD1 = AdcRegs.ADCRESULT0 >> 4;
+  AD2 = (AD1 * 3 * 1000) / 4095;  //瀹為檯AD鍊�*1000
 
-  // Next two lines for debug only to halt the processor here
-  // Remove after inserting ISR Code
-  asm("      ESTOP0");
-  for (;;)
-    ;
+  AdcRegs.ADCTRL2.bit.RST_SEQ1 = 1;    // reset SEQ1
+  AdcRegs.ADCST.bit.INT_SEQ1_CLR = 0;  // clear the flag
+
+  // To receive more interrupts from this PIE group, acknowledge this interrupt
+  PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+
+  AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
 }
 
 // INT1.7
@@ -356,14 +359,12 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   }
   time_adj();
 
-  // ADC adjustment, read ADC results EVERY 100 MS
+  // ADC adjustment, start ADC conversion EVERY 100 MS
+  // read the result when conversion completed
   if (cnt == 10) {
-    AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/启动
-    while (AdcRegs.ADCST.bit.SEQ1_BSY == 1) {
-    }  // 忙否
-    AD1 = AdcRegs.ADCRESULT0 >> 4;
-    AD2 = (AD1 * 3 * 1000) / 4095;  //实际AD值*1000
+    AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
   }
+
   if (cnt == 20) {
     cnt = 0;
     if (flag.display_which == DISPLAY_ADC) {
@@ -371,8 +372,11 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
     }
   }
 
+  display();
+
   PieCtrlRegs.PIEACK.all = 0x1;
   CpuTimer0Regs.TCR.all = 0xf000;
+  
   // To receive more interrupts from this PIE group, acknowledge this interrupt
   PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
@@ -409,7 +413,7 @@ interrupt void CMP1INT_ISR(void)  // EV-A
   // }
   // GpioDataRegs.GPEDAT.all = 0xFFFF;
 
-  EvaRegs.EVAIFRA.all = 2;  // 置位CMPR1中断标志
+  EvaRegs.EVAIFRA.all = 2;  // 缃綅CMPR1涓柇鏍囧織
 
   // To receive more interrupts from this PIE group, acknowledge this interrupt
   PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
@@ -428,7 +432,7 @@ interrupt void CMP2INT_ISR(void)  // EV-A
   // }
   // GpioDataRegs.GPEDAT.all = 0xFFFF;
 
-  EvaRegs.EVAIFRA.all = 4;  // 置位CMPR2中断标志
+  EvaRegs.EVAIFRA.all = 4;  // 缃綅CMPR2涓柇鏍囧織
   // To receive more interrupts from this PIE group, acknowledge this interrupt
   PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 }
@@ -446,7 +450,7 @@ interrupt void CMP3INT_ISR(void)  // EV-A
   // }
   // GpioDataRegs.GPEDAT.all = 0xFFFF;
 
-  EvaRegs.EVAIFRA.all = 8;  // 置位CMPR3中断标志
+  EvaRegs.EVAIFRA.all = 8;  // 缃綅CMPR3涓柇鏍囧織
   // To receive more interrupts from this PIE group, acknowledge this interrupt
   PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 }
@@ -1082,7 +1086,7 @@ interrupt void ECAN1INTA_ISR(void)  // eCAN-A
 //
 
 interrupt void EMPTY_ISR(void)  // Empty ISR - only does a return.
-{  //�����̣�������ɴ��жϲ����ķ��ء�
+{  //锟斤拷锟斤拷锟教ｏ拷锟斤拷锟斤拷锟斤拷纱锟斤拷卸喜锟斤拷锟斤拷姆锟斤拷亍锟�
 }
 
 interrupt void PIE_RESERVED(void)  // Reserved space.  For test.
