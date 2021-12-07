@@ -5,6 +5,7 @@ extern Uint32 time;
 extern SysFlags flag;
 extern Uint16 AD1;
 extern Uint16 AD2;
+extern unsigned int LEDCode[33];
 
 void display(void) {
   GpioDataRegs.GPADAT.bit.GPIOA11 = 0;

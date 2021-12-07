@@ -23,6 +23,7 @@ extern Uint32 time;
 extern SysFlags flag;
 extern Uint16 AD1;
 extern Uint16 AD2;
+extern unsigned int LEDCode[33];
 
 // Note CPU-Timer1 ISR is reserved for TI use.
 interrupt void INT13_ISR(void)  // INT13 or CPU-Timer1

@@ -29,14 +29,15 @@ void AdcPowerUp(void) {
   // DSP28_Examples.h file must contain the correct CPU clock period in
   // nanoseconds(nS). For example:
 
+  int i;
   AdcRegs.ADCTRL3.bit.ADCBGRFDN = 0x3;  // Power up bandgap/reference circuitry
                                         //��϶�Ͳο���·�ϵ�
-  for (int i = 0; i < 1000000; i++)
+  for (i = 0; i < 1000000; i++)
     ;                               // Delay before powering up rest of ADC
                                     // ADC�ϵ縴λǰ������ʱ5ms
   AdcRegs.ADCTRL3.bit.ADCPWDN = 1;  // Power up rest of ADC
                                     // ADC�ϵ縴λ
-  for (int i = 0; i < 10000; i++)
+  for (i = 0; i < 10000; i++)
     ;  // Delay after powering up ADC
        // ADC�ϵ縴λ����ʱ20us
 }
