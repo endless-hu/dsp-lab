@@ -25,6 +25,7 @@ void InitFlag() {
   flag.clock_start = CLOCK_START;
   flag.display_which = DISPLAY_CLOCK;
   flag.clock_speed = LOW_SPEED;
+  flag.op_unit = MODOFF;
 }
 
 void main(void) {
