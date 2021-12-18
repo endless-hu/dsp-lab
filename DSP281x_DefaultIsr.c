@@ -329,9 +329,6 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   Keyscan();
 
   // time adjustment
-  if ((flag.display_which == DISPLAY_CLOCK) && (cnt % 2 == 0)) {
-    display_latch();
-  }
   switch (flag.clock_speed) {
     case HIGH_SPEED: {
       if (flag.clock_start == CLOCK_START) {
@@ -360,23 +357,23 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   time_adj();
 
   // ADC adjustment, start ADC conversion EVERY 100 MS
-  // read the result when conversion completed
   if (cnt == 10) {
     AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
   }
 
   if (cnt == 20) {
     cnt = 0;
-    if (flag.display_which == DISPLAY_ADC) {
-      display_latch();
-    }
   }
 
-  display();
+  if (cnt % 2 == 0) {
+    display();
+  } else {
+    display_latch();
+  }
 
   PieCtrlRegs.PIEACK.all = 0x1;
   CpuTimer0Regs.TCR.all = 0xf000;
-  
+
   // To receive more interrupts from this PIE group, acknowledge this interrupt
   PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }

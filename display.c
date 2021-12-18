@@ -62,7 +62,7 @@ void display_time() {
 
         case TEN_MIN:
           // display 'NN' at the last two bits
-          SpiaRegs.SPITXBUF = LEDCode[S];
+          SpiaRegs.SPITXBUF = LEDCode[N];
           break;
 
         case HOUR:
@@ -75,12 +75,13 @@ void display_time() {
           break;
 
         case TEN_HOUR:
-          // display 'NN' at the last two bits
+          // display 'HH' at the last two bits
           SpiaRegs.SPITXBUF = LEDCode[H];
           break;
 
         default:
           // ERROR, stop the system
+          asm("      ESTOP0");
           for (;;)
             ;
       }
