@@ -104,22 +104,22 @@ void KeyFunction() {
       if (flag.display_which == DISPLAY_CLOCK) {
         switch (flag.op_unit) {
           case SEC:
-            time++;
+            time--;
             break;
           case TEN_SEC:
-            time += 10;
+            time -= 10;
             break;
           case MIN:
-            time += 60;
+            time -= 60;
             break;
           case TEN_MIN:
-            time += 600;
+            time -= 600;
             break;
           case HOUR:
-            time += 3600;
+            time -= 3600;
             break;
           case TEN_HOUR:
-            time += 36000;
+            time -= 36000;
             break;
           case MODOFF:
             break;
@@ -162,6 +162,14 @@ void KeyFunction() {
       }
       break;
 
+    case KEYA:  // switch display mode
+      if (flag.display_which == DISPLAY_ADC) {
+        flag.display_which = DISPLAY_CLOCK;
+      } else {
+        flag.display_which = DISPLAY_ADC;
+      }
+      break;
+
     case KEYC:  // Clear and Stop clock
       time = 0;
       flag.clock_start = CLOCK_STOP;
@@ -190,12 +198,12 @@ void KeyFunction() {
             break;
           case MODOFF:
             flag.op_unit = SEC;
+            break;
 
           default:
             // ERROR, stop the system
             for (;;)
               ;
-
         }
       }
       break;
@@ -215,7 +223,6 @@ void KeyFunction() {
           // ERROR, stop the system
           for (;;)
             ;
-
       }
       break;
 

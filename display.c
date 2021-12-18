@@ -96,8 +96,8 @@ void display_time() {
 void display_adc() {
   int i;
   Uint16 code[8] = {
-      AD2 / 1000 + 20, (AD2 % 1000) / 100, (AD2 % 100) / 10, BLANK,
-      AD1 / 1000,      (AD1 % 1000) / 100, (AD1 % 100) / 10, AD1 % 10};
+      AD2 / 1000, (AD2 % 1000) / 100, (AD2 % 100) / 10, BLANK,
+      AD1 / 1000 + 20,      (AD1 % 1000) / 100, (AD1 % 100) / 10, AD1 % 10};
   for (i = 0; i < 8; i++) {
     SpiaRegs.SPITXBUF = LEDCode[code[i]];
   }

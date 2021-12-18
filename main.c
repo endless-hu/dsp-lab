@@ -1,9 +1,12 @@
 #include "main.h"
 
+extern cregister volatile unsigned int IFR;
+extern cregister volatile unsigned int IER;
+
 Uint32 time = 0;
 int keyin = 0xffff;
-Uint16 AD2;
-Uint16 AD1;
+Uint16 AD2 = 0;
+Uint16 AD1 = 0;
 SysFlags flag;
 
 const unsigned int LEDCode[33] = {
@@ -26,6 +29,7 @@ void InitFlag() {
   flag.display_which = DISPLAY_CLOCK;
   flag.clock_speed = LOW_SPEED;
   flag.op_unit = MODOFF;
+  GpioDataRegs.GPFDAT.all = 0x0700;
 }
 
 void main(void) {
@@ -47,6 +51,14 @@ void main(void) {
   asm("  or  IER,#01H");
   asm("  EINT");
   SysCtrlRegs.LPMCR0.all = 0x0;
+  IFR = 0x0;
+  IER = 0X3;
+  PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
+  PieCtrlRegs.PIEIER1.bit.INTx1 = 1;
+  PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
+  PieCtrlRegs.PIEIER3.bit.INTx1 = 1;
+  PieCtrlRegs.PIEIER4.bit.INTx1 = 1;
+
   EDIS;
 
   InitFlag();

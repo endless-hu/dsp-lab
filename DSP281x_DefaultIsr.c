@@ -306,16 +306,7 @@ interrupt void ADCINT_ISR(void)  // ADC
 {
   // Insert ISR Code here
 
-  AD1 = AdcRegs.ADCRESULT0 >> 4;
-  AD2 = (AD1 * 3 * 1000) / 4095;  //瀹為檯AD鍊�*1000
 
-  AdcRegs.ADCTRL2.bit.RST_SEQ1 = 1;    // reset SEQ1
-  AdcRegs.ADCST.bit.INT_SEQ1_CLR = 0;  // clear the flag
-
-  // To receive more interrupts from this PIE group, acknowledge this interrupt
-  PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
-
-  AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
 }
 
 // INT1.7
@@ -357,12 +348,14 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   time_adj();
 
   // ADC adjustment, start ADC conversion EVERY 100 MS
-  if (cnt == 10) {
-    AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
-  }
+  if (cnt % 10 == 0) {
+      AD1 = AdcRegs.ADCRESULT0 >> 4;
+      AD2 = (AD1 * 3 * 1000) / 4095;  //瀹為檯AD鍊�*1000
 
-  if (cnt == 20) {
-    cnt = 0;
+      AdcRegs.ADCTRL2.bit.RST_SEQ1 = 1;    // reset SEQ1
+      AdcRegs.ADCST.bit.INT_SEQ1_CLR = 0;  // clear the flag
+
+      AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
   }
 
   if (cnt % 2 == 0) {
@@ -459,7 +452,7 @@ interrupt void T1PINT_ISR(void)  // EV-A
 
   GpioDataRegs.GPFDAT.all = 0x0700;  // 0000 0111 0000 0000
 
-  EvaRegs.CMPR1 = AD2PWM(AD2) / 3;
+  EvaRegs.CMPR1 = AD2PWM(AD2) / 3 + 10;
   EvaRegs.CMPR2 = AD2PWM(AD2) / 3 + 55;
   EvaRegs.CMPR3 = AD2PWM(AD2) / 3 + 110;
 
