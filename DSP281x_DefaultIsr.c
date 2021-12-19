@@ -25,6 +25,26 @@ extern Uint16 AD1;
 extern Uint16 AD2;
 extern const unsigned int LEDCode[33];
 
+void enable_lights() {
+  GpioMuxRegs.GPEMUX.all = 0x0;  // f8~f13
+  GpioMuxRegs.GPEDIR.all = 0xFF;
+  GpioDataRegs.GPEDAT.all = 0xFFFF;
+
+  GpioMuxRegs.GPBMUX.all = 0x0;  // f8~f13
+  GpioMuxRegs.GPBDIR.all = 0xFF00;
+}
+
+void restore_status() {
+  GpioMuxRegs.GPBMUX.all = 0x0000;
+  GpioMuxRegs.GPBDIR.all = 0xFF00;
+
+  GpioMuxRegs.GPEMUX.all = 0x0000;
+  GpioMuxRegs.GPEDIR.all = 0x0007;
+
+  GpioMuxRegs.GPAMUX.bit.TDIRA_GPIOA11 = 0;
+  GpioMuxRegs.GPADIR.bit.GPIOA11 = 1;
+}
+
 // Note CPU-Timer1 ISR is reserved for TI use.
 interrupt void INT13_ISR(void)  // INT13 or CPU-Timer1
 {
@@ -305,8 +325,6 @@ interrupt void XINT2_ISR(void) {
 interrupt void ADCINT_ISR(void)  // ADC
 {
   // Insert ISR Code here
-
-
 }
 
 // INT1.7
@@ -349,13 +367,13 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
 
   // ADC adjustment, start ADC conversion EVERY 100 MS
   if (cnt % 10 == 0) {
-      AD1 = AdcRegs.ADCRESULT0 >> 4;
-      AD2 = (AD1 * 3 * 1000) / 4095;  //瀹為檯AD鍊�*1000
+    AD1 = AdcRegs.ADCRESULT0 >> 4;
+    AD2 = (AD1 * 3 * 1000) / 4095;  //瀹為檯AD鍊�*1000
 
-      AdcRegs.ADCTRL2.bit.RST_SEQ1 = 1;    // reset SEQ1
-      AdcRegs.ADCST.bit.INT_SEQ1_CLR = 0;  // clear the flag
+    AdcRegs.ADCTRL2.bit.RST_SEQ1 = 1;    // reset SEQ1
+    AdcRegs.ADCST.bit.INT_SEQ1_CLR = 0;  // clear the flag
 
-      AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
+    AdcRegs.ADCTRL2.bit.SOC_SEQ1 = 1;  // S/W/鍚姩
   }
 
   if (cnt % 2 == 0) {
@@ -363,6 +381,68 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   } else {
     display_latch();
   }
+
+  int i;
+  EALLOW;
+  enable_lights();
+  if (AD1 < 1000) {
+    GpioDataRegs.GPBDAT.all = 0xFF00;  // 1111 1011 0000 0000
+    GpioDataRegs.GPEDAT.all = 7;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 2;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 7;
+
+    GpioMuxRegs.GPBDIR.all = 0xFF00;
+    GpioDataRegs.GPBDAT.all = 0x7F00;  // 0111 1111
+    GpioDataRegs.GPEDAT.all = 7;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 3;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 7;
+  } else if (AD1 < 1500) {
+    GpioDataRegs.GPBDAT.all = 0xFF00;  // 1111 1011 0000 0000
+    GpioDataRegs.GPEDAT.all = 7;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 2;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 7;
+
+    GpioDataRegs.GPBDAT.all = 0xEF00;  // 1110 1111 0000 0000
+    GpioDataRegs.GPEDAT.all = 7;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 3;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 7;
+  } else {
+    GpioDataRegs.GPBDAT.all = 0xFF00;  // 1111 1011 0000 0000
+    GpioDataRegs.GPEDAT.all = 7;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 3;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 7;
+
+    GpioDataRegs.GPBDAT.all = 0xFB00;  // 1111 1011 0000 0000
+    GpioDataRegs.GPEDAT.all = 7;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 2;
+    for (i = 0; i < 100; i++) {
+    }
+    GpioDataRegs.GPEDAT.all = 7;
+  }
+  restore_status();
+  EDIS;
 
   PieCtrlRegs.PIEACK.all = 0x1;
   CpuTimer0Regs.TCR.all = 0xf000;
