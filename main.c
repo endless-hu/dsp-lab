@@ -29,7 +29,7 @@ void InitFlag() {
   flag.display_which = DISPLAY_CLOCK;
   flag.clock_speed = LOW_SPEED;
   flag.op_unit = MODOFF;
-  GpioDataRegs.GPFDAT.all = 0x0700;
+  GpioDataRegs.GPFDAT.all = 0x0700;  // 0000 0111
 }
 
 void main(void) {
@@ -54,14 +54,16 @@ void main(void) {
   IFR = 0x0;
   IER = 0X3;
   PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
-  PieCtrlRegs.PIEIER1.bit.INTx1 = 1;
-  PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
-  PieCtrlRegs.PIEIER3.bit.INTx1 = 1;
-  PieCtrlRegs.PIEIER4.bit.INTx1 = 1;
-
   EDIS;
 
   InitFlag();
+
+  EALLOW;
+  PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
+  PieCtrlRegs.PIEIER2.bit.INTx2 = 1;
+  PieCtrlRegs.PIEIER2.bit.INTx3 = 1;
+  PieCtrlRegs.PIEIER2.bit.INTx4 = 1;
+  EDIS;
 
   display();
 

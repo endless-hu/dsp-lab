@@ -479,9 +479,9 @@ interrupt void T1PINT_ISR(void)  // EV-A
 
   GpioDataRegs.GPFDAT.all = 0x0700;  // 0000 0111 0000 0000
 
-  EvaRegs.CMPR1 = AD2PWM(AD2) / 3 + 10;
-  EvaRegs.CMPR2 = AD2PWM(AD2) / 3 + 55;
-  EvaRegs.CMPR3 = AD2PWM(AD2) / 3 + 110;
+  EvaRegs.CMPR1 = AD2PWM(AD1);
+  EvaRegs.CMPR2 = AD2PWM(AD1) + 45;
+  EvaRegs.CMPR3 = AD2PWM(AD1) + 90;
 
   // EvaRegs.EVAIFRA.bit.T1PINT = 1;
   EvaRegs.EVAIFRA.all = 0x80;  // set the P1INT flag
