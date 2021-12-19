@@ -385,62 +385,9 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   int i;
   EALLOW;
   enable_lights();
-  if (AD1 < 1000) {
-    GpioDataRegs.GPBDAT.all = 0xFF00;  // 1111 1011 0000 0000
-    GpioDataRegs.GPEDAT.all = 7;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 2;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 7;
 
-    GpioMuxRegs.GPBDIR.all = 0xFF00;
-    GpioDataRegs.GPBDAT.all = 0x7F00;  // 0111 1111
-    GpioDataRegs.GPEDAT.all = 7;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 3;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 7;
-  } else if (AD1 < 1500) {
-    GpioDataRegs.GPBDAT.all = 0xFF00;  // 1111 1011 0000 0000
-    GpioDataRegs.GPEDAT.all = 7;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 2;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 7;
+  // INSERT LIGHT CODE HERE
 
-    GpioDataRegs.GPBDAT.all = 0xEF00;  // 1110 1111 0000 0000
-    GpioDataRegs.GPEDAT.all = 7;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 3;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 7;
-  } else {
-    GpioDataRegs.GPBDAT.all = 0xFF00;  // 1111 1011 0000 0000
-    GpioDataRegs.GPEDAT.all = 7;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 3;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 7;
-
-    GpioDataRegs.GPBDAT.all = 0xFB00;  // 1111 1011 0000 0000
-    GpioDataRegs.GPEDAT.all = 7;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 2;
-    for (i = 0; i < 100; i++) {
-    }
-    GpioDataRegs.GPEDAT.all = 7;
-  }
   restore_status();
   EDIS;
 
