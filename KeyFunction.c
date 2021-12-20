@@ -104,22 +104,22 @@ void KeyFunction() {
       if (flag.display_which == DISPLAY_CLOCK) {
         switch (flag.op_unit) {
           case SEC:
-            time--;
+            if (time > 0) time--;
             break;
           case TEN_SEC:
-            time -= 10;
+            if (time > 10) time -= 10;
             break;
           case MIN:
-            time -= 60;
+            if (time > 60) time -= 60;
             break;
           case TEN_MIN:
-            time -= 600;
+            if (time > 600) time -= 600;
             break;
           case HOUR:
-            time -= 3600;
+            if (time > 3600) time -= 3600;
             break;
           case TEN_HOUR:
-            time -= 36000;
+            if (time > 36000) time -= 36000;
             break;
           case MODOFF:
             break;
