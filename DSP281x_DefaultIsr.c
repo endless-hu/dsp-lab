@@ -382,6 +382,7 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
     display_latch();
   }
 
+  /*
   int i;
   EALLOW;
   enable_lights();
@@ -413,6 +414,7 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
 
   restore_status();
   EDIS;
+  */
 
   PieCtrlRegs.PIEACK.all = 0x1;
   CpuTimer0Regs.TCR.all = 0xf000;
@@ -501,10 +503,13 @@ interrupt void T1PINT_ISR(void)  // EV-A
   // Insert ISR Code here
 
   GpioDataRegs.GPFDAT.all = 0x0700;  // 0000 0111 0000 0000
+  Uint16 c1 = AD2PWM(AD1);
+  Uint16 c3 = (300 - c1) / 3;  // 周期值是300
+  Uint16 c2 = (c1 + c3) / 2;
 
-  EvaRegs.CMPR1 = AD2PWM(AD1);
-  EvaRegs.CMPR2 = AD2PWM(AD1) + 45;
-  EvaRegs.CMPR3 = AD2PWM(AD1) + 90;
+  EvaRegs.CMPR1 = c1;
+  EvaRegs.CMPR2 = c2;
+  EvaRegs.CMPR3 = c3;
 
   // EvaRegs.EVAIFRA.bit.T1PINT = 1;
   EvaRegs.EVAIFRA.all = 0x80;  // set the P1INT flag

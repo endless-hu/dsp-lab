@@ -58,14 +58,14 @@ void main(void) {
 
   InitFlag();
 
-  /*
+  
   EALLOW;
   PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
   PieCtrlRegs.PIEIER2.bit.INTx2 = 1;
   PieCtrlRegs.PIEIER2.bit.INTx3 = 1;
   PieCtrlRegs.PIEIER2.bit.INTx4 = 1;
   EDIS;
-  */
+  
 
   display();
 

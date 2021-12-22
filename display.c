@@ -17,9 +17,7 @@ void display(void) {
 }
 
 void time_adj() {
-  if (time == 360000) {
-    time = 0;
-  }
+  time %= 360000;
   timer[5] = time % 60 % 10;
   timer[4] = time % 60 / 10;
   timer[3] = time % 3600 / 60 % 10;
