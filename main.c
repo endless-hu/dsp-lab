@@ -9,7 +9,7 @@ Uint16 AD2 = 0;
 Uint16 AD1 = 0;
 SysFlags flag;
 
-const unsigned int LEDCode[33] = {
+const unsigned int LEDCode[34] = {
     // start from "0"
     0xc000, 0xf900, 0xA400, 0xB000, 0x9900, 0x9200, 0x8200, 0xF800, 0x8000,
     0x9000,
@@ -21,7 +21,7 @@ const unsigned int LEDCode[33] = {
     0x4000, 0x7900, 0x2400, 0x3000, 0x1900, 0x1200, 0x0200, 0x7800, 0x0000,
     0x1000,
     // 30 -> 'S', 'N', 'H'
-    0x9200, 0xC800, 0x8900};
+    0x9200, 0xC800, 0x8900, 0xBF00};
 
 void InitFlag() {
   flag.adc_start = ADC_START;
@@ -58,12 +58,14 @@ void main(void) {
 
   InitFlag();
 
+  /*
   EALLOW;
   PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
   PieCtrlRegs.PIEIER2.bit.INTx2 = 1;
   PieCtrlRegs.PIEIER2.bit.INTx3 = 1;
   PieCtrlRegs.PIEIER2.bit.INTx4 = 1;
   EDIS;
+  */
 
   display();
 

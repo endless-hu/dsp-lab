@@ -29,75 +29,21 @@ void time_adj() {
 }
 
 void display_time() {
-  int i;
-  for (i = 0; i < 8; i++) {
-    if (i > 5) {
-      switch (flag.op_unit) {
-        case MODOFF:
-          SpiaRegs.SPITXBUF = LEDCode[BLANK];
-          break;
-
-        case SEC:
-          // display 'S' at the last bit
-          if (i == 6) {
-            SpiaRegs.SPITXBUF = LEDCode[BLANK];
-          } else {
-            SpiaRegs.SPITXBUF = LEDCode[S];
-          }
-          break;
-
-        case TEN_SEC:
-          // display 'SS' at the last two bits
-          SpiaRegs.SPITXBUF = LEDCode[S];
-          break;
-
-        case MIN:
-          // display 'N' at the last bit
-          if (i == 6) {
-            SpiaRegs.SPITXBUF = LEDCode[BLANK];
-          } else {
-            SpiaRegs.SPITXBUF = LEDCode[N];
-          }
-          break;
-
-        case TEN_MIN:
-          // display 'NN' at the last two bits
-          SpiaRegs.SPITXBUF = LEDCode[N];
-          break;
-
-        case HOUR:
-          // display 'H' at the last bit
-          if (i == 6) {
-            SpiaRegs.SPITXBUF = LEDCode[BLANK];
-          } else {
-            SpiaRegs.SPITXBUF = LEDCode[H];
-          }
-          break;
-
-        case TEN_HOUR:
-          // display 'HH' at the last two bits
-          SpiaRegs.SPITXBUF = LEDCode[H];
-          break;
-
-        default:
-          // ERROR, stop the system
-          asm("      ESTOP0");
-          for (;;)
-            ;
-      }
-    } else if (i % 2 == 0) {
-      SpiaRegs.SPITXBUF = LEDCode[timer[i]];
-    } else {
-      SpiaRegs.SPITXBUF = LEDCode[timer[i] + 20];
-    }
-  }
+  SpiaRegs.SPITXBUF = LEDCode[timer[5]];
+  SpiaRegs.SPITXBUF = LEDCode[timer[4]];
+  SpiaRegs.SPITXBUF = LEDCode[33];
+  SpiaRegs.SPITXBUF = LEDCode[timer[3]];
+  SpiaRegs.SPITXBUF = LEDCode[timer[2]];
+  SpiaRegs.SPITXBUF = LEDCode[33];
+  SpiaRegs.SPITXBUF = LEDCode[timer[1]];
+  SpiaRegs.SPITXBUF = LEDCode[timer[0]];
 }
 
 void display_adc() {
   int i;
   Uint16 code[8] = {
-      AD2 / 1000, (AD2 % 1000) / 100, (AD2 % 100) / 10, BLANK,
-      AD1 / 1000 + 20,      (AD1 % 1000) / 100, (AD1 % 100) / 10, AD1 % 10};
+      AD2 / 1000,      (AD2 % 1000) / 100, (AD2 % 100) / 10, BLANK,
+      AD1 / 1000 + 20, (AD1 % 1000) / 100, (AD1 % 100) / 10, AD1 % 10};
   for (i = 0; i < 8; i++) {
     SpiaRegs.SPITXBUF = LEDCode[code[i]];
   }

@@ -387,6 +387,29 @@ interrupt void TINT0_ISR(void)  // CPU-Timer 0
   enable_lights();
 
   // INSERT LIGHT CODE HERE
+  if (cnt % 200 < 150) {
+    GpioDataRegs.GPFDAT.all = 0xFE00;  // 0001 1111
+  } else {
+    GpioDataRegs.GPFDAT.all = 0xFFFF;
+  }
+
+  GpioDataRegs.GPBDAT.all = 0xFF00;
+  GpioDataRegs.GPEDAT.all = 7;
+  for (i = 0; i < 100; i++) {
+  }
+  GpioDataRegs.GPEDAT.all = 2;
+  for (i = 0; i < 100; i++) {
+  }
+  GpioDataRegs.GPEDAT.all = 7;
+
+  GpioDataRegs.GPBDAT.all = 0x7F00;
+  GpioDataRegs.GPEDAT.all = 7;
+  for (i = 0; i < 100; i++) {
+  }
+  GpioDataRegs.GPEDAT.all = 3;
+  for (i = 0; i < 100; i++) {
+  }
+  GpioDataRegs.GPEDAT.all = 7;
 
   restore_status();
   EDIS;
